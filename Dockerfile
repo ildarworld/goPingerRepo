@@ -8,8 +8,8 @@ RUN apt-get install -y git
 #RUN mkdir /goroot && curl https://storage.googleapis.com/golang/go1.2.2.linux-amd64.tar.gz | tar xvzf - -C /goroot --strip-components=1
 RUN mkdir goroot
 RUN mkdir gopath
-ENV GOROOT goroot
-ENV GOPATH gopath
+ENV GOROOT /goroot
+ENV GOPATH /gopath
 ENV PATH $PATH:$GOROOT/bin:$GOPATH/bin
 RUN git init
 RUN git pull https://github.com/ildarworld/goPingerRepo.git 
