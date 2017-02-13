@@ -10,10 +10,7 @@ import (
     "bufio"
 )
 
-
-const targetIP = "8.8.8.8"
-
-const fileName = "hosts.txt"
+const fileName = "hosts/hosts.txt"
 
 func main() {
     lines, err := readFile()
@@ -70,9 +67,7 @@ func ping(hostAddress string)(string){
     p.OnRecv = func(addr *net.IPAddr, rtt time.Duration) {
         fmt.Printf("IP Addr: %s receive, RTT: %v\n", addr.String(), rtt)
     }
-    // p.OnIdle = func() {
-    //     fmt.Println("finish")
-    // }
+
     err = p.Run()
     if err != nil {
         return err.Error()
