@@ -13,14 +13,18 @@ import (
 const fileName = "hosts/hosts.txt"
 
 func main() {
-    lines, err := readFile()
-    if err != nil {
-        log.Fatalf("readLines: %s", err)
-    }else{
-        startPinging(lines)
-    }
+    ticker := time.NewTicker(time.Second * 5)
+    go func (){
+        lines, err := readFile()
 
-
+        if err != nil {
+            log.Fatalf("readLines: %s", err)
+        }else{
+            startPinging(lines)
+        }
+    }()
+    time.Sleep(time.Second * 55)
+    ticker.Stop()
 }
 
 func readFile() ([]string, error) {
