@@ -6,8 +6,9 @@ import (
     "time"
     "os"
     "github.com/tatsushid/go-fastping"
-    // "log"
+    "log"
     "bufio"
+    "path/filepath"
 )
 
 const fileName = "hosts/hosts.txt"
@@ -20,6 +21,11 @@ func main() {
             lines, err := readFile()
             if err != nil {
                 fmt.Println("Open file: ", err)
+                dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+                if err != nil {
+                    log.Fatal(err)
+                }
+                fmt.Println(dir)
                 // log.Fatalf("readLines: %s", err)
             }else{
                 startPinging(lines)
