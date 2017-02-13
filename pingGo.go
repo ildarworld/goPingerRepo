@@ -6,25 +6,31 @@ import (
     "time"
     "os"
     "github.com/tatsushid/go-fastping"
-    "log"
+    // "log"
     "bufio"
 )
 
 const fileName = "hosts/hosts.txt"
 
 func main() {
+
     ticker := time.NewTicker(time.Second * 5)
     go func (){
-        lines, err := readFile()
-
-        if err != nil {
-            log.Fatalf("readLines: %s", err)
-        }else{
-            startPinging(lines)
+        for range ticker.C {
+            lines, err := readFile()
+            if err != nil {
+                fmt.Println("Open file: ", err)
+                // log.Fatalf("readLines: %s", err)
+            }else{
+                startPinging(lines)
+                ticker.Stop()
+                fmt.Println("First Ticker stopped")
+            }
         }
     }()
-    time.Sleep(time.Second * 55)
+    time.Sleep(time.Second * 100)
     ticker.Stop()
+    fmt.Println("Ticker stopped")
 }
 
 func readFile() ([]string, error) {
